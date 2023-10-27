@@ -86,6 +86,7 @@ def data_generator():
 data_csv = Process(target=data_generator, args=[])
 data_plot = Process(target=realtime_plot, args=[])
 
+
 if __name__ == '__main__':
     print("start")
     data_csv.start()
