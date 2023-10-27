@@ -11,19 +11,8 @@ import numpy as np
 
 
 def realtime_plot():
-    # x = np.linspace(0, 2 * np.pi, 400)
-    # y = np.sin(x ** 2)
-    #
-    # fig, (ax1, ax2) = plt.subplots(1, 2)
-    # # fig.suptitle('Horizontally stacked subplots')
-    # ax1.plot(x, y)
-    # ax2.plot(x, -y)
-
-    # Choose style.
+     # Choose style.
     plt.style.use('fivethirtyeight')
-    # x_vals = []
-    # y_vals = []
-    # index = count()
     plt.rcParams['toolbar'] = 'None'
 
     def animate(i):
@@ -35,18 +24,12 @@ def realtime_plot():
 
         # Clear axes
         plt.cla()
+        plt.legend(loc='upper left')
+        plt.tight_layout()
 
         # Overlay subplots
         plt.plot(x_time, y_speed, label='y_speed', linewidth=1)
         plt.plot(x_time, y_rpm, label='y_rpm', linewidth=1)
-        plt.legend(loc='upper left')
-
-        # Horizontally stacked subplots
-        # fig, (ax1, ax2) = plt.subplots(1, 2)
-        # ax1.plot(x, y1, label='Channel 1', linewidth=1)
-        # ax2.plot(x, y2, label='Channel 2', linewidth=1)
-
-        plt.tight_layout()
 
     animation = FuncAnimation(plt.gcf(), animate, interval=2,cache_frame_data=False)
     plt.tight_layout()
@@ -59,7 +42,6 @@ def data_generator():
      y_rpm = 0
      gear = 1
 
-     # fieldnames = ["x_value", "total_1", "total_2"]
      fieldnames = ["x_time", "y_speed", "y_rpm", "gear"]
 
      with open('data.csv', 'w') as csv_file:
@@ -75,8 +57,10 @@ def data_generator():
                  "y_rpm": y_rpm,
                  "gear": gear
                  }
+
              csv_writer.writerow(info)
              print(x_time, y_speed, y_rpm, gear)
+
              x_time += 1
 
              y_speed = y_speed + random.randint(-5, 5)
@@ -97,7 +81,6 @@ def data_generator():
                  gear =1
 
              time.sleep(0.025)
-
 
 
 data_csv = Process(target=data_generator, args=[])
